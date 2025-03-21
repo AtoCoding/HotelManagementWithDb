@@ -1,0 +1,47 @@
+﻿<Window x:Class="Wpf_Hms.AdminWindow.CustomerInformationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf_Hms"
+        mc:Ignorable="d"
+        Title="Customer Management System"
+        Height="685" Width="1265"
+        Background="AliceBlue"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Canvas>
+        <Label Content="Customer's Information" Canvas.Left="28" Canvas.Top="31" Height="80" Width="580" FontWeight="Heavy" FontSize="45" FontStyle="Italic" Foreground="Black" />
+        <Label x:Name="txtWelcomeMessage" Content="Hello, Admin" Canvas.Left="940" Canvas.Top="10" Height="50" Width="315" HorizontalContentAlignment="Right" FontSize="25" FontStyle="Italic" />
+
+        <Rectangle Height="94" Width="1171" Stroke="Black" Fill="AntiqueWhite" RadiusX="10" RadiusY="10" Canvas.Left="47" Canvas.Top="140" />
+        <Label Content="FullName" Foreground="Black" Height="28" Width="71" Canvas.Left="78" Canvas.Top="141" />
+        <TextBox x:Name="txtFullNameSearch" Height="45" Width="303" TabIndex="0" TextWrapping="Wrap" Canvas.Left="78" Canvas.Top="169" />
+        <Label Content="Telephone" Foreground="Black" Height="28" Width="78" Canvas.Left="423" Canvas.Top="141" />
+        <TextBox x:Name="txtTelephoneSearch" Height="45" Width="185" TabIndex="1" TextWrapping="Wrap" Canvas.Left="423" Canvas.Top="169"/>
+        <Label Content="Email" Foreground="Black" Height="28" Width="72" Canvas.Left="643" Canvas.Top="141" />
+        <TextBox x:Name="txtEmailAddressSearch" Height="45" TextWrapping="Wrap" Width="186" TabIndex="2" Canvas.Left="643" Canvas.Top="169" />
+        <Button x:Name="btnSearch" Content="Search Customer" Height="50" Width="262" TabIndex="3" Canvas.Left="919" Canvas.Top="166" Click="btnSearch_Click"/>
+
+        <StackPanel Orientation="Horizontal">
+            <DataGrid x:Name="dgCustomer" Height="310" Width="930" Margin="40,289,0,0" AutoGenerateColumns="False" TabIndex="8" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="CID" Width="40" Binding="{Binding CustomerId}" />
+                    <DataGridTextColumn Header="Name" Width="200" Binding="{Binding CustomerFullName}" />
+                    <DataGridTextColumn Header="Telephone" Width="70" Binding="{Binding Telephone}" />
+                    <DataGridTextColumn Header="Email" Width="100" Binding="{Binding EmailAddress}" />
+                    <DataGridTextColumn Header="Birthday" Width="70" Binding="{Binding CustomerBirthday, StringFormat={}{0:dd/MM/yyyy}}" />
+                    <DataGridTextColumn Header="Status" Width="100" Binding="{Binding CustomerStatusName}" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Margin="10,289,0,0" VerticalAlignment="Top">
+                <Button x:Name="btnCreate" Content="Create Customer" Height="50" Width="185" TabIndex="4" Click="btnCreate_Click"/>
+                <Button x:Name="btnUpdate" Content="Update Customer" Height="50" Width="185" TabIndex="5" Click="btnUpdate_Click" />
+                <Button x:Name="btnDelete" Content="Delete Customer" Height="50" Width="185" TabIndex="6" Click="btnDelete_Click" />
+                <Button x:Name="btnBack" Content="Back to main menu" Height="50" Width="185" TabIndex="7" Click="btnBack_Click" />
+                <Button x:Name="btnQuit" Content="Quit" Height="50" Width="185" TabIndex="8" Click="btnQuit_Click" />
+            </StackPanel>
+        </StackPanel>
+    </Canvas>
+</Window>

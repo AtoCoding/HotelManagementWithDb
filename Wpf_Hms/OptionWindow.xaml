@@ -1,0 +1,28 @@
+﻿<Window x:Class="Wpf_Hms.OptionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf_Hms.Admin"
+        mc:Ignorable="d"
+        Title="Option Window"
+        Height="540" Width="855"
+        Background="AliceBlue"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Canvas>
+        <Rectangle Canvas.Left="138" Canvas.Top="87" Height="350" Width="580" Fill="AntiqueWhite" Stroke="Black" RadiusX="20" RadiusY="20" />
+
+        <Canvas x:Name="AdminSession" Visibility="Hidden">
+            <Button x:Name="btnCustomerManagement" Click="BtnCustomerManagement_Click" Content="Customer management" Height="55" Width="230" Canvas.Left="313" Canvas.Top="135" />
+            <Button x:Name="btnRoomManagement" Click="BtnRoomManagement_Click" Content="Room information management" Height="55" Width="230" Canvas.Left="313" Canvas.Top="231" />
+            <Button x:Name="btnReport" Click="BtnReportManagement_Click" Content="Report statistic creation" Height="55" Width="230" Canvas.Left="313" Canvas.Top="329" />
+        </Canvas>
+
+        <Canvas x:Name="CustomerSession" Visibility="Hidden">
+            <Button x:Name="btnProfile" Click="BtnProfile_Click" Content="Profile" Height="55" Width="230" Canvas.Left="313" Canvas.Top="186" />
+            <Button x:Name="btnBookingHistory" Click="BtnBookingHistory_Click" Content="Booking reservation history" Height="55" Width="230" Canvas.Left="313" Canvas.Top="282" />
+        </Canvas>
+    </Canvas>
+
+</Window>
