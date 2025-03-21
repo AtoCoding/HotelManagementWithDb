@@ -16,7 +16,7 @@ namespace BusinessLogicLayer.Services
 
         public static RoomInformationService GetInstance() => _Instance ??= new RoomInformationService();
 
-        public RoomInformation? Add(RoomInformation data)
+        public bool Add(RoomInformation data)
         {
             return _RoomInformationRepository.Add(data);
         }
@@ -41,6 +41,11 @@ namespace BusinessLogicLayer.Services
             return _RoomInformationRepository.GetAll();
         }
 
+        public int GetNewId()
+        {
+            return -1;
+        }
+
         public List<RoomInformation> Search(string? description, string? typeName, int capacity)
         {
             return _RoomInformationRepository.Search(description, typeName, capacity);
@@ -51,7 +56,7 @@ namespace BusinessLogicLayer.Services
             return _RoomInformationRepository.Search(fullName, telephone, emailAddress);
         }
 
-        public RoomInformation? Update(RoomInformation data)
+        public bool Update(RoomInformation data)
         {
             return _RoomInformationRepository.Update(data); 
         }

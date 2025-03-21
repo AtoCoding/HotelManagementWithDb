@@ -15,11 +15,11 @@ namespace DataAccessLayer.Repositories
 
         public static RoomInformationRepository GetInstance() => _Instance ??= new RoomInformationRepository();
 
-        public RoomInformation? Add(RoomInformation data)
+        public bool Add(RoomInformation data)
         {
             _Context.RoomInformations.Add(data);
 
-            return _Context.SaveChanges() > 0 ? data : null;
+            return _Context.SaveChanges() > 0;
         }
 
         public int Count()
@@ -41,6 +41,11 @@ namespace DataAccessLayer.Repositories
             return _Context.RoomInformations.FirstOrDefault(x => x.RoomId == id);
         }
 
+        public int GetNewId()
+        {
+            return -1;
+        }
+
         public List<RoomInformation> GetAll()
         {
             return _Context.RoomInformations.ToList();
@@ -56,11 +61,11 @@ namespace DataAccessLayer.Repositories
             return [];
         }
 
-        public RoomInformation? Update(RoomInformation data)
+        public bool Update(RoomInformation data)
         {
             _Context.RoomInformations.Update(data);
 
-            return _Context.SaveChanges() > 0 ? data : null;
+            return _Context.SaveChanges() > 0;
         }
     }
 }

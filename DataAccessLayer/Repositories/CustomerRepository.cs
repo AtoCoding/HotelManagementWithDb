@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Bases;
 using DataAccessLayer.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
@@ -29,9 +30,17 @@ namespace DataAccessLayer.Repositories
 
         public bool Delete(int id)
         {
-            Customer? customer = _Context.Customers.FirstOrDefault(x => x.CustomerId == id);
+            Customer? customer = _Context.Customers.Include(x => x.BookingReservations).FirstOrDefault(x => x.CustomerId == id);
 
-            _Context.Customers.Remove(customer ?? new());
+            if(customer?.BookingReservations.Count == 0)
+            {
+                _Context.Customers.Remove(customer ?? new());
+            } 
+            else
+            {
+                customer!.CustomerStatus = 2;
+                _Context.Customers.Update(customer);
+            }
 
             return _Context.SaveChanges() > 0;
         }
@@ -56,11 +65,16 @@ namespace DataAccessLayer.Repositories
             return [];
         }
 
-        public Customer? Update(Customer data)
+        public bool Update(Customer data)
         {
             _Context.Customers.Update(data);
 
-            return _Context.SaveChanges() > 0 ? data : null;
+            return _Context.SaveChanges() > 0;
+        }
+
+        public int GetNewId()
+        {
+            return _Context.Customers.OrderByDescending(x => x.CustomerId).FirstOrDefault()?.CustomerId + 1 ?? 1;
         }
     }
 }

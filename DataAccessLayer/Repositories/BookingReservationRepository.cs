@@ -15,11 +15,11 @@ namespace DataAccessLayer.Repositories
 
         public static BookingReservationRepository GetInstance() => _Instance ??= new BookingReservationRepository();
 
-        public BookingReservation? Add(BookingReservation data)
+        public bool Add(BookingReservation data)
         {
             _Context.BookingReservations.Add(data);
 
-            return _Context.SaveChanges() > 0 ? data : null;
+            return _Context.SaveChanges() > 0;
         }
 
         public int Count()
@@ -34,6 +34,11 @@ namespace DataAccessLayer.Repositories
             _Context.BookingReservations.Remove(bookingReservation ?? new());
 
             return _Context.SaveChanges() > 0;
+        }
+
+        public int GetNewId()
+        {
+            return -1;
         }
 
         public BookingReservation? Get(int id)
@@ -56,11 +61,11 @@ namespace DataAccessLayer.Repositories
             return [];
         }
 
-        public BookingReservation? Update(BookingReservation data)
+        public bool Update(BookingReservation data)
         {
             _Context.BookingReservations.Update(data);
 
-            return _Context.SaveChanges() > 0 ? data : null;
+            return _Context.SaveChanges() > 0;
         }
     }
 }

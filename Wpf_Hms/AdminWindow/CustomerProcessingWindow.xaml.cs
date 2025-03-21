@@ -6,8 +6,11 @@ using BusinessLogicLayer.Services;
 using BusinessLogicLayer.Bases;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 using BusinessLogicLayer.Constant;
+using BusinessLogicLayer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore.Storage.Json;
 
-namespace Wpf_Hms.Admin
+namespace Wpf_Hms.AdminWindow
 {
     /// <summary>
     /// Interaction logic for CustomerProcessingWindow.xaml
@@ -15,6 +18,8 @@ namespace Wpf_Hms.Admin
     public partial class CustomerProcessingWindow : Window
     {
         private readonly IService<CustomerDto> _CustomerService;
+
+        private int newCustomerId;
 
         private bool isCreateAction;
 
@@ -33,9 +38,12 @@ namespace Wpf_Hms.Admin
         {
             LoadCustomerStatus();
 
+            newCustomerId = _CustomerService.GetNewId();
+
             if (isCreateAction)
             {
                 lbTitle.Content = "Create Customer";
+                txtCustomerId.Text = newCustomerId.ToString();
             }
             else
             {
@@ -46,27 +54,19 @@ namespace Wpf_Hms.Admin
                 txtEmailAddress.Text = customer.EmailAddress;
                 dpCustomerBirthday.SelectedDate = customer.CustomerBirthday!.Value.ToDateTime(new TimeOnly(0, 0));
                 cbxCustomerStatus.SelectedValue = (int)customer.CustomerStatus!;
+                txtPassword.Text = customer.Password;
+
+                cbxCustomerStatus.IsEnabled = false;
             }
         }
 
         private void LoadCustomerStatus()
         {
-            List<(byte? CustomerStatusId, string CustomerRoomStatusName)> customerStatus = _CustomerService.GetAll()
-                                                .Select(x =>
-                                                {
-                                                    string statusStr = x.CustomerStatus switch
-                                                    {
-                                                        1 => HMSDisplayConst.CUSTOMER_ACTIVE,
-                                                        2 => HMSDisplayConst.CUSTOMER_DELETED,
-                                                        _ => string.Empty
-                                                    };
-
-                                                    return (x.CustomerStatus, statusStr);
-                                                }).ToList();
+            var customerStatus = ServiceCommon.GetCustomerStatusName();
 
             cbxCustomerStatus.ItemsSource = customerStatus;
             cbxCustomerStatus.SelectedValuePath = "CustomerStatusId";
-            cbxCustomerStatus.DisplayMemberPath = "CustomerRoomStatusName";
+            cbxCustomerStatus.DisplayMemberPath = "CustomerStatusName";
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -78,7 +78,7 @@ namespace Wpf_Hms.Admin
                 Telephone = txtTelephone.Text ?? string.Empty,
                 EmailAddress = txtEmailAddress.Text ?? string.Empty,
                 CustomerBirthday = dpCustomerBirthday.SelectedDate != null ? DateOnly.FromDateTime(dpCustomerBirthday.SelectedDate.Value) : null,
-                CustomerStatus = cbxCustomerStatus.SelectedValue != null ? (byte)cbxCustomerStatus.SelectedValue : null,
+                CustomerStatus = cbxCustomerStatus.SelectedValue != null ? byte.Parse(cbxCustomerStatus.SelectedValue.ToString()!) : null,
                 Password = txtPassword.Text ?? string.Empty,
             };
 
@@ -96,9 +96,9 @@ namespace Wpf_Hms.Admin
             {
                 if (isCreateAction)
                 {
-                    var dataAdd = _CustomerService.Add(customerDto);
+                    bool addResult = _CustomerService.Add(customerDto);
 
-                    if (dataAdd != null)
+                    if (addResult)
                     {
                         MessageBox.Show("Create successfully!");
                         this.Close();
@@ -110,9 +110,9 @@ namespace Wpf_Hms.Admin
                 }
                 else
                 {
-                    var dataUpdate = _CustomerService.Update(customerDto);
+                    bool updateResult = _CustomerService.Update(customerDto);
 
-                    if (dataUpdate != null)
+                    if (updateResult)
                     {
                         MessageBox.Show("Update successfully!");
                         this.Close();

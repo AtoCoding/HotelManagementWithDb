@@ -10,7 +10,7 @@ namespace BusinessLogicLayer
     {
         private static ServiceCommon _Instance = null!;
         private static IService<CustomerDto> _CustomerService = null!;
-
+        public record CustomerStatus(byte CustomerStatusId, string CustomerStatusName);
         private ServiceCommon()
         {
             _CustomerService = CustomerService.GetInstance();
@@ -30,6 +30,15 @@ namespace BusinessLogicLayer
                 };
                 return x;
             }).ToList();
-        } 
+        }
+
+        public static List<CustomerStatus> GetCustomerStatusName()
+        {
+            return new()
+            {
+                new CustomerStatus(1, HMSDisplayConst.CUSTOMER_ACTIVE),
+                new CustomerStatus(2, HMSDisplayConst.CUSTOMER_DELETED)
+            };
+        }
     }
 }

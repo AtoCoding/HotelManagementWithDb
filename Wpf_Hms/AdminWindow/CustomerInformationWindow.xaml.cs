@@ -66,15 +66,15 @@ namespace Wpf_Hms.AdminWindow
 
             if (result == MessageBoxResult.Yes)
             {
-                Customer customer = (Customer)dgCustomer.SelectedItem;
+                CustomerDto customerDto = (CustomerDto)dgCustomer.SelectedItem;
 
-                if (customer == null)
+                if (customerDto == null)
                 {
                     MessageBox.Show("Please select a room to delete");
                     return;
                 }
 
-                if (_CustomerService.Delete(customer.CustomerId))
+                if (_CustomerService.Delete(customerDto.CustomerId))
                 {
                     MessageBox.Show("Delete successfully");
                 }

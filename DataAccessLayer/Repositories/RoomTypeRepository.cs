@@ -15,11 +15,11 @@ namespace DataAccessLayer.Repositories
 
         public static RoomTypeRepository GetInstance() => _Instance ??= new RoomTypeRepository();
 
-        public RoomType? Add(RoomType data)
+        public bool Add(RoomType data)
         {
             _Context.RoomTypes.Add(data);
             
-            return _Context.SaveChanges() > 0 ? data : null;
+            return _Context.SaveChanges() > 0;
         }
 
         public int Count()
@@ -46,6 +46,11 @@ namespace DataAccessLayer.Repositories
             return _Context.RoomTypes.ToList();
         }
 
+        public int GetNewId()
+        {
+            return -1;
+        }
+
         public List<RoomType> Search(string? description, string? typeName, int capacity)
         {
             return [];
@@ -56,11 +61,11 @@ namespace DataAccessLayer.Repositories
             return [];
         }
 
-        public RoomType? Update(RoomType data)
+        public bool Update(RoomType data)
         {
             _Context.RoomTypes.Update(data);
 
-            return _Context.SaveChanges() > 0 ? data : null;
+            return _Context.SaveChanges() > 0;
         }
     }
 }

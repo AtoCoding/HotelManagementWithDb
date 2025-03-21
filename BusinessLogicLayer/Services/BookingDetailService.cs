@@ -16,7 +16,7 @@ namespace BusinessLogicLayer.Services
 
         public static BookingDetailService GetInstance() => _Instance ??= new BookingDetailService();
 
-        public BookingDetail? Add(BookingDetail data)
+        public bool Add(BookingDetail data)
         {
             return _BookingDetailRepository.Add(data);
         }
@@ -41,6 +41,11 @@ namespace BusinessLogicLayer.Services
             return _BookingDetailRepository.GetAll();
         }
 
+        public int GetNewId()
+        {
+            return -1;
+        }
+
         public List<BookingDetail> Search(string? description, string? typeName, int capacity)
         {
             return _BookingDetailRepository.Search(description, typeName, capacity);
@@ -51,7 +56,7 @@ namespace BusinessLogicLayer.Services
             return _BookingDetailRepository.Search(fullName, telephone, emailAddress);
         }
 
-        public BookingDetail? Update(BookingDetail data)
+        public bool Update(BookingDetail data)
         {
             return _BookingDetailRepository.Update(data);
         }

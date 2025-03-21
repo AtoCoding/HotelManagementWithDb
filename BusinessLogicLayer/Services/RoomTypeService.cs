@@ -16,7 +16,7 @@ namespace BusinessLogicLayer.Services
 
         public static RoomTypeService GetInstance() => _Instance ??= new RoomTypeService();
 
-        public RoomType? Add(RoomType data)
+        public bool Add(RoomType data)
         {
             return _RoomTypeRepository.Add(data);
         }
@@ -41,6 +41,11 @@ namespace BusinessLogicLayer.Services
             return _RoomTypeRepository.GetAll();
         }
 
+        public int GetNewId()
+        {
+            return -1;
+        }
+
         public List<RoomType> Search(string? description, string? typeName, int capacity)
         {
             return _RoomTypeRepository.Search(description, typeName, capacity);
@@ -51,7 +56,7 @@ namespace BusinessLogicLayer.Services
             return _RoomTypeRepository.Search(fullName, telephone, emailAddress);
         }
 
-        public RoomType? Update(RoomType data)
+        public bool Update(RoomType data)
         {
             return _RoomTypeRepository.Update(data);
         }

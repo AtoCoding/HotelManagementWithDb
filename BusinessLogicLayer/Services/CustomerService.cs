@@ -25,7 +25,13 @@ namespace BusinessLogicLayer.Services
             {
                 Customer customer = new()
                 {
-
+                    CustomerFullName = data.CustomerFullName,
+                    Telephone = data.Telephone,
+                    EmailAddress = data.EmailAddress,
+                    CustomerBirthday = data.CustomerBirthday,
+                    CustomerStatus = data.CustomerStatus,
+                    Password = data.Password,
+                    BookingReservations = []
                 };
 
                 return _CustomerRepository.Add(customer);
@@ -62,7 +68,7 @@ namespace BusinessLogicLayer.Services
 
         public bool Delete(int id)
         {
-            return false;
+            return _CustomerRepository.Delete(id);
         }
 
         public CustomerDto? Get(int id)
@@ -86,6 +92,7 @@ namespace BusinessLogicLayer.Services
                     CustomerBirthday = customer.CustomerBirthday,
                     CustomerStatus = customer.CustomerStatus,
                     CustomerStatusName = "",
+                    Password = customer.Password,
                     BookingReservations = customer.BookingReservations,
                 });
             }
@@ -105,9 +112,28 @@ namespace BusinessLogicLayer.Services
             return [];
         }
 
-        public CustomerDto? Update(CustomerDto data)
+        public bool Update(CustomerDto data)
         {
-            return null!;
+            Customer? customer = _CustomerRepository.Get(data.CustomerId);
+
+            if (customer != null)
+            {
+                customer.CustomerFullName = data.CustomerFullName;
+                customer.Telephone = data.Telephone;
+                customer.EmailAddress = data.EmailAddress;
+                customer.CustomerBirthday = data.CustomerBirthday;
+                customer.CustomerStatus = data.CustomerStatus;
+                customer.Password = data.Password;
+
+                return _CustomerRepository.Update(customer);
+            }
+
+            return false;
+        }
+
+        public int GetNewId()
+        {
+            return _CustomerRepository.GetNewId();
         }
     }
 }
