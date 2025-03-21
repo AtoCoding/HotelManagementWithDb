@@ -1,0 +1,26 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DataAccessLayer.Entities;
+
+public partial class RoomInformation
+{
+    public int RoomId { get; set; }
+
+    [Required(ErrorMessage = "Room Number is required.")]
+    [StringLength(50, ErrorMessage = "Room Number cannot exceed 50 characters.")]
+    public string RoomNumber { get; set; } = null!;
+
+    public string? RoomDetailDescription { get; set; }
+
+    public int? RoomMaxCapacity { get; set; }
+
+    public int RoomTypeId { get; set; }
+
+    public byte? RoomStatus { get; set; }
+
+    public decimal? RoomPricePerDay { get; set; }
+
+    public virtual ICollection<BookingDetail> BookingDetails { get; set; } = new List<BookingDetail>();
+
+    public virtual RoomType RoomType { get; set; } = null!;
+}
