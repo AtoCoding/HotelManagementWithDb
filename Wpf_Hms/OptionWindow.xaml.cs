@@ -1,7 +1,6 @@
 ﻿using System.Windows;
-using Wpf_Hms.Admin;
 using Wpf_Hms.AdminWindow;
-using Wpf_Hms.CustomerProfile;
+using Wpf_Hms.CustomerWindow;
 
 namespace Wpf_Hms
 {
@@ -62,7 +61,9 @@ namespace Wpf_Hms
         
         private void BtnReportManagement_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Comming soon . . .");
+            ReportStatisticWindow reportStatisticWindow = new ReportStatisticWindow(email);
+            reportStatisticWindow.Show();
+            this.Close();
         }
 
         private void BtnBookingHistory_Click(object sender, RoutedEventArgs e)

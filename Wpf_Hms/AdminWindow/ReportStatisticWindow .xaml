@@ -1,0 +1,49 @@
+﻿<Window x:Class="Wpf_Hms.AdminWindow.ReportStatisticWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf_Hms"
+        mc:Ignorable="d"
+        Title="Report statistic"
+        Height="685" Width="1265"
+        Background="AliceBlue"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Canvas>
+        <Label Content="Report statistic" Canvas.Left="28" Canvas.Top="31" Height="80" Width="580" FontWeight="Heavy" FontSize="45" FontStyle="Italic" Foreground="Black" />
+        <Label x:Name="txtWelcomeMessage" Content="Hello, Admin" Canvas.Left="940" Canvas.Top="10" Height="50" Width="315" HorizontalContentAlignment="Right" FontSize="25" FontStyle="Italic" />
+
+        <Rectangle Height="94" Width="1171" Stroke="Black" Fill="AntiqueWhite" RadiusX="10" RadiusY="10" Canvas.Left="47" Canvas.Top="140" />
+        <Label Content="Start date" Foreground="Black" Height="28" Width="97" Canvas.Left="232" Canvas.Top="163" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <DatePicker x:Name="dpStartDate" Height="23" Width="355" TabIndex="0" Canvas.Left="103" Canvas.Top="191" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Label Content="End date" Foreground="Black" Height="28" Width="97" Canvas.Left="634" Canvas.Top="163" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <DatePicker x:Name="dpEndDate" Height="23" Width="355" TabIndex="0" Canvas.Left="505" Canvas.Top="191" HorizontalAlignment="Left" VerticalAlignment="Center" />
+
+        <Button x:Name="btnSearch" Content="Search" Height="50" Width="262" TabIndex="3" Canvas.Left="919" Canvas.Top="166" Click="btnSearch_Click"/>
+
+        <StackPanel Orientation="Horizontal">
+            <DataGrid x:Name="dgReport" Height="310" Width="930" Margin="40,289,0,0" AutoGenerateColumns="False" TabIndex="8" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Booking's id" Width="100" Binding="{Binding BookingReservationId}" />
+                    <DataGridTextColumn Header="Room's id" Width="100" Binding="{Binding RoomId}" />
+                    <DataGridTextColumn Header="Customer's id" Width="100" Binding="{Binding CustomerId}" />
+                    <DataGridTextColumn Header="Start date" Width="150" Binding="{Binding StartDate}" />
+                    <DataGridTextColumn Header="End date" Width="150" Binding="{Binding EndDate}" />
+                    <DataGridTextColumn Header="Total price" Width="120" Binding="{Binding TotalPrice}" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Margin="10,289,0,0" VerticalAlignment="Top">
+                <Label Content="Number of bookings" Foreground="Black" Height="28" Width="187" Canvas.Left="634" Canvas.Top="163" HorizontalAlignment="Left" />
+                <TextBox x:Name="txtCount" IsEnabled="False" Height="23" Width="188" Canvas.Left="505" Canvas.Top="191" HorizontalAlignment="Left"  />
+
+                <Label Content="Total price" Foreground="Black" Height="28" Width="187" Canvas.Left="634" Canvas.Top="163" HorizontalAlignment="Left" />
+                <TextBox x:Name="txtTotalPrice" IsEnabled="False" Height="23" Width="188" Canvas.Left="505" Canvas.Top="191" HorizontalAlignment="Left" />
+
+                <Button x:Name="btnBack" Content="Back to main menu" Height="50" Width="185" TabIndex="6" Margin="0,20,0,0" Click="btnBack_Click" />
+
+                <Button x:Name="btnQuit" Content="Quit" Height="50" Width="184" TabIndex="7" Margin="0,20,0,0" Click="btnQuit_Click" />
+            </StackPanel>
+        </StackPanel>
+    </Canvas>
+</Window>

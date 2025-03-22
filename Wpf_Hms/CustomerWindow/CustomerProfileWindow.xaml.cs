@@ -5,8 +5,9 @@ using BusinessLogicLayer.Bases;
 using DataAccessLayer.Entities;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 using BusinessLogicLayer.Constant;
+using BusinessLogicLayer;
 
-namespace Wpf_Hms.CustomerProfile
+namespace Wpf_Hms.CustomerWindow
 {
     /// <summary>
     /// Interaction logic for CustomerProfileWindow.xaml
@@ -29,7 +30,7 @@ namespace Wpf_Hms.CustomerProfile
         {
             LoadCustomerStatus();
 
-            Customer customer = _CustomerService.GetAll().Find(x => x.EmailAddress == email)!;
+            Customer customer = _CustomerService.GetAll().FirstOrDefault(x => x.EmailAddress == email)!;
 
             txtCustomerId.Text = customer.CustomerId.ToString();
             txtCustomerFullName.Text = customer.CustomerFullName;
@@ -37,26 +38,16 @@ namespace Wpf_Hms.CustomerProfile
             txtEmailAddress.Text = customer.EmailAddress;
             dpCustomerBirthday.SelectedDate = customer.CustomerBirthday!.Value.ToDateTime(new TimeOnly(0, 0));
             cbxCustomerStatus.SelectedValue = (int)customer.CustomerStatus!;
+            txtPassword.Text = customer.Password;
         }
 
         private void LoadCustomerStatus()
         {
-            List<(byte? CustomerStatusId, string CustomerRoomStatusName)> customerStatus = _CustomerService.GetAll()
-                                                .Select(x =>
-                                                {
-                                                    string statusStr = x.CustomerStatus switch
-                                                    {
-                                                        1 => HMSDisplayConst.CUSTOMER_ACTIVE,
-                                                        2 => HMSDisplayConst.CUSTOMER_DELETED,
-                                                        _ => string.Empty
-                                                    };  
-
-                                                    return (x.CustomerStatus, statusStr);
-                                                }).ToList();
+            var customerStatus = ServiceCommon.GetCustomerStatusName();
 
             cbxCustomerStatus.ItemsSource = customerStatus;
             cbxCustomerStatus.SelectedValuePath = "CustomerStatusId";
-            cbxCustomerStatus.DisplayMemberPath = "CustomerRoomStatusName";
+            cbxCustomerStatus.DisplayMemberPath = "CustomerStatusName";
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
@@ -79,7 +70,8 @@ namespace Wpf_Hms.CustomerProfile
                 Telephone = txtTelephone.Text ?? string.Empty,
                 EmailAddress = txtEmailAddress.Text ?? string.Empty,
                 CustomerBirthday = dpCustomerBirthday.SelectedDate != null ? DateOnly.FromDateTime(dpCustomerBirthday.SelectedDate.Value) : null,
-                CustomerStatus = cbxCustomerStatus.SelectedValue != null ? (byte)cbxCustomerStatus.SelectedValue : null
+                CustomerStatus = cbxCustomerStatus.SelectedValue != null ? byte.Parse(cbxCustomerStatus.SelectedValue.ToString()!) : null,
+                Password = txtPassword.Text
             };
 
             var validationResults = new List<ValidationResult>();

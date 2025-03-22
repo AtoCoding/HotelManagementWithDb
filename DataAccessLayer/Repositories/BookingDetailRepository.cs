@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Bases;
 using DataAccessLayer.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
@@ -43,7 +44,7 @@ namespace DataAccessLayer.Repositories
 
         public List<BookingDetail> GetAll()
         {
-            return _Context.BookingDetails.ToList();
+            return _Context.BookingDetails.Include(x => x.BookingReservation).ToList();
         }
 
         public List<BookingDetail> GetList(int id)
