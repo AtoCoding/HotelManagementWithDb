@@ -3,7 +3,7 @@ using DataAccessLayer.Entities;
 
 namespace DataAccessLayer.Repositories
 {
-    public class BookingDetailRepository : IRepository<BookingDetail>
+    public class BookingDetailRepository : IService<BookingDetail>
     {
         private static BookingDetailRepository _Instance = null!;
         private readonly FuminiHotelManagementContext _Context;
@@ -44,6 +44,11 @@ namespace DataAccessLayer.Repositories
         public List<BookingDetail> GetAll()
         {
             return _Context.BookingDetails.ToList();
+        }
+
+        public List<BookingDetail> GetList(int id)
+        {
+            return [];
         }
 
         public int GetNewId()

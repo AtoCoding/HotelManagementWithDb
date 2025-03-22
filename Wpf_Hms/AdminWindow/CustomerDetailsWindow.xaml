@@ -1,0 +1,59 @@
+﻿<Window x:Class="Wpf_Hms.AdminWindow.CustomerDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf_Hms"
+        mc:Ignorable="d"
+        Title="Customer Details" 
+        Height="755" Width="1150" 
+        Background="AliceBlue" 
+        ResizeMode="NoResize" 
+        WindowStartupLocation="CenterScreen" >
+    <Canvas>
+        <Label x:Name="lbTitle" Content="Customer's details" Height="80" Width="814" FontWeight="Heavy" FontSize="40" FontStyle="Italic" Foreground="Black" Canvas.Left="10" Canvas.Top="10" />
+
+        <Rectangle Height="565" Stroke="Black" Width="875" Fill="AntiqueWhite" RadiusX="10" RadiusY="10" Canvas.Left="138" Canvas.Top="120" />
+
+        <Label Content="CID" Height="45" Width="128" Foreground="#ff4500" Canvas.Left="168" Canvas.Top="145" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <TextBox x:Name="txtCustomerId" Height="45" Width="227" TextWrapping="Wrap" TabIndex="0" IsEnabled="False" Canvas.Left="296" Canvas.Top="145" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+        <Label Content="Name" Height="45" Width="128" Foreground="#ff4500" Canvas.Left="617" Canvas.Top="145" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <TextBox x:Name="txtCustomerFullName" Height="45" Width="227" TextWrapping="Wrap" TabIndex="1" IsEnabled="False" Canvas.Left="745" Canvas.Top="145" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+        <Label Content="Telephone" Height="45" Width="128" Canvas.Left="168" Canvas.Top="221" Foreground="#ff4500" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <TextBox x:Name="txtTelephone" Height="45" Width="227" Canvas.Left="296" Canvas.Top="221" TextWrapping="Wrap" TabIndex="2" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+        <Label Content="Email" Height="45" Width="128" Canvas.Left="617" Canvas.Top="221" Foreground="#ff4500" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <TextBox x:Name="txtEmailAddress" Height="45" Width="227" Canvas.Left="745" Canvas.Top="221" TextWrapping="Wrap" TabIndex="3" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+        <Label Content="Password" Height="45" Width="128" Canvas.Left="186" Canvas.Top="298" Foreground="#ff4500" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <TextBox x:Name="txtPassword" Height="45" Width="159" Canvas.Left="270" Canvas.Top="298" TextWrapping="Wrap" TabIndex="4" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+        <Label Content="Birthday" Height="45" Width="128" Canvas.Left="459" Canvas.Top="298" Foreground="#ff4500" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <DatePicker x:Name="dpCustomerBirthday" Language="en-GB" Width="165" TabIndex="5" IsEnabled="False" FontWeight="Bold" FontSize="18" Canvas.Left="534" Canvas.Top="305" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+        <Label Content="Status" Height="45" Width="128" Foreground="#ff4500" Canvas.Left="736" Canvas.Top="298" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbxCustomerStatus" Height="45" Width="159" Background="#ff4500" TabIndex="6" IsEnabled="False" FontWeight="Bold" FontSize="18" Canvas.Left="800" Canvas.Top="299" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <Label Content="Booking's id" Height="46" Width="128" Canvas.Left="186" Canvas.Top="402" Foreground="#ff4500" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <ComboBox x:Name="cbxBookingReservationId" Height="46" Width="159" Canvas.Left="270" Canvas.Top="402" TabIndex="7" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="cbxBookingReservationId_SelectionChanged" />
+
+        <Label Content="Booking date" Height="45" Width="128" Canvas.Left="448" Canvas.Top="403" Foreground="#ff4500" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <DatePicker x:Name="dpBookingDate" Language="en-GB" Width="166" TabIndex="8" IsEnabled="False" FontWeight="Bold" FontSize="18" Canvas.Left="538" Canvas.Top="410" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+        <Label Content="Total price" Height="46" Width="128" Canvas.Left="729" Canvas.Top="402" Foreground="#ff4500" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <TextBox x:Name="txtTotalPrice" Height="46" Width="159" Canvas.Left="813" Canvas.Top="402" TextWrapping="Wrap" TabIndex="9" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        
+        <Label Content="Room's id" Height="46" Width="128" Canvas.Left="186" Canvas.Top="480" Foreground="#ff4500" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <ComboBox x:Name="cbxRoomId" Height="46" Width="159" Canvas.Left="270" Canvas.Top="480" TabIndex="10" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="cbxRoomId_SelectionChanged" />
+
+        <Label Content="Start date" Height="46" Width="128" Canvas.Left="448" Canvas.Top="480" Foreground="#ff4500" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <DatePicker x:Name="dpStartDate" Language="en-GB" Width="166" TabIndex="11" IsEnabled="False" FontWeight="Bold" FontSize="18" Canvas.Left="538" Canvas.Top="488" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+        <Label Content="End date" Height="46" Width="128" Canvas.Left="729" Canvas.Top="480" Foreground="#ff4500" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <DatePicker x:Name="dpEndDate" Language="en-GB" Width="166" TabIndex="12" IsEnabled="False" FontWeight="Bold" FontSize="18" Canvas.Left="819" Canvas.Top="488" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+        <Button x:Name="btnClose" Content="Close" Height="50" Width="165" TabIndex="13" Click="btnClose_Click" Canvas.Left="493" Canvas.Top="579" HorizontalAlignment="Left" VerticalAlignment="Top" />
+    </Canvas>
+</Window>

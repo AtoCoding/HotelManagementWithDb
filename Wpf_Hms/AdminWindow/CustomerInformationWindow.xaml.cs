@@ -109,5 +109,17 @@ namespace Wpf_Hms.AdminWindow
 
             LoadDataWindow(customers);
         }
+
+        private void btnViewDetails_Click(object sender, RoutedEventArgs e)
+        {
+            CustomerDto customer = (CustomerDto)dgCustomer.SelectedItem;
+            if (customer == null)
+            {
+                MessageBox.Show("Please select a room to view");
+                return;
+            }
+            CustomerDetailsWindow customerDetailsWindow = new(customer);
+            customerDetailsWindow.ShowDialog();
+        }
     }
 }

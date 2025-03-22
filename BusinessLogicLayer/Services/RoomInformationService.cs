@@ -41,6 +41,11 @@ namespace BusinessLogicLayer.Services
             return _RoomInformationRepository.GetAll();
         }
 
+        public List<RoomInformation> GetList(int id)
+        {
+            return [];
+        }
+
         public int GetNewId()
         {
             return -1;

@@ -3,7 +3,7 @@ using DataAccessLayer.Entities;
 
 namespace DataAccessLayer.Repositories
 {
-    public class RoomInformationRepository : IRepository<RoomInformation>
+    public class RoomInformationRepository : IService<RoomInformation>
     {
         private static RoomInformationRepository _Instance = null!;
         private readonly FuminiHotelManagementContext _Context;
@@ -66,6 +66,11 @@ namespace DataAccessLayer.Repositories
             _Context.RoomInformations.Update(data);
 
             return _Context.SaveChanges() > 0;
+        }
+
+        public List<RoomInformation> GetList(int id)
+        {
+            return [];
         }
     }
 }

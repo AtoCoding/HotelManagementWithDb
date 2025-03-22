@@ -2,8 +2,9 @@
 using BusinessLogicLayer.Services;
 using BusinessLogicLayer.Bases;
 using DataAccessLayer.Entities;
+using Wpf_Hms.Admin;
 
-namespace Wpf_Hms.Admin
+namespace Wpf_Hms.AdminWindow
 {
     /// <summary>
     /// Interaction logic for RoomInformationWindow.xaml

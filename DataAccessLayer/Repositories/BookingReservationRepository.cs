@@ -1,9 +1,10 @@
 ﻿using DataAccessLayer.Bases;
 using DataAccessLayer.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
-    public class BookingReservationRepository : IRepository<BookingReservation>
+    public class BookingReservationRepository : IService<BookingReservation>
     {
         private static BookingReservationRepository _Instance = null!;
         private readonly FuminiHotelManagementContext _Context;
@@ -66,6 +67,15 @@ namespace DataAccessLayer.Repositories
             _Context.BookingReservations.Update(data);
 
             return _Context.SaveChanges() > 0;
+        }
+
+        public List<BookingReservation> GetList(int id)
+        {
+            return _Context.BookingReservations.Where(x => x.CustomerId == id)
+                                               .Include(x => x.BookingDetails)
+                                                    .ThenInclude(x => x.Room)
+                                                        .ThenInclude(x => x.RoomType)
+                                               .ToList();
         }
     }
 }

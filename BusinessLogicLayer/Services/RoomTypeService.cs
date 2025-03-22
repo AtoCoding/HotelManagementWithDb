@@ -41,6 +41,11 @@ namespace BusinessLogicLayer.Services
             return _RoomTypeRepository.GetAll();
         }
 
+        public List<RoomType> GetList(int id)
+        {
+            return [];
+        }
+
         public int GetNewId()
         {
             return -1;

@@ -1,10 +1,11 @@
-﻿using DataAccessLayer.Bases;
+﻿using BusinessLogicLayer.Bases;
+using DataAccessLayer.Bases;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Repositories;
 
 namespace BusinessLogicLayer.Services
 {
-    public class BookingReservationService : IRepository<BookingReservation>
+    public class BookingReservationService : Bases.IService<BookingReservation>
     {
         private static BookingReservationService _Instance = null!;
         private readonly BookingReservationRepository _BookingReservationRepository;
@@ -59,6 +60,11 @@ namespace BusinessLogicLayer.Services
         public bool Update(BookingReservation data)
         {
             return _BookingReservationRepository.Update(data);
+        }
+
+        public List<BookingReservation> GetList(int id)
+        {
+            return _BookingReservationRepository.GetList(id);
         }
     }
 }

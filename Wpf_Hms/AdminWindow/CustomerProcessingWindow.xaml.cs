@@ -56,7 +56,8 @@ namespace Wpf_Hms.AdminWindow
                 cbxCustomerStatus.SelectedValue = (int)customer.CustomerStatus!;
                 txtPassword.Text = customer.Password;
 
-                cbxCustomerStatus.IsEnabled = false;
+                if(customer.CustomerStatus == 2) cbxCustomerStatus.IsEnabled = true;
+                else cbxCustomerStatus.IsEnabled = false;
             }
         }
 

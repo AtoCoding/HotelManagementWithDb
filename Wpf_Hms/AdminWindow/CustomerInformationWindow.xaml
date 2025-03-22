@@ -37,10 +37,11 @@
             </DataGrid>
 
             <StackPanel Margin="10,289,0,0" VerticalAlignment="Top">
-                <Button x:Name="btnCreate" Content="Create Customer" Height="50" Width="185" TabIndex="4" Click="btnCreate_Click"/>
-                <Button x:Name="btnUpdate" Content="Update Customer" Height="50" Width="185" TabIndex="5" Click="btnUpdate_Click" />
-                <Button x:Name="btnDelete" Content="Delete Customer" Height="50" Width="185" TabIndex="6" Click="btnDelete_Click" />
-                <Button x:Name="btnBack" Content="Back to main menu" Height="50" Width="185" TabIndex="7" Click="btnBack_Click" />
+                <Button x:Name="btnViewDetails" Content="View Details" Height="50" Width="185" TabIndex="4" Click="btnViewDetails_Click"/>
+                <Button x:Name="btnCreate" Content="Create Customer" Height="50" Width="185" TabIndex="5" Click="btnCreate_Click"/>
+                <Button x:Name="btnUpdate" Content="Update Customer" Height="50" Width="185" TabIndex="6" Click="btnUpdate_Click" />
+                <Button x:Name="btnDelete" Content="Delete Customer" Height="50" Width="185" TabIndex="7" Click="btnDelete_Click" />
+                <Button x:Name="btnBack" Content="Back to main menu" Height="50" Width="185" TabIndex="8" Click="btnBack_Click" />
                 <Button x:Name="btnQuit" Content="Quit" Height="50" Width="185" TabIndex="8" Click="btnQuit_Click" />
             </StackPanel>
         </StackPanel>

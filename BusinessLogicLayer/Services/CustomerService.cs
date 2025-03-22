@@ -109,7 +109,28 @@ namespace BusinessLogicLayer.Services
 
         public List<CustomerDto> Search(string? fullName, string? telephone, string? emailAddress)
         {
-            return [];
+            List<Customer> customers = _CustomerRepository.Search(fullName, telephone, emailAddress);
+            List<CustomerDto> customerDtos = new List<CustomerDto>();
+
+            foreach (var customer in customers)
+            {
+                customerDtos.Add(new CustomerDto()
+                {
+                    CustomerId = customer.CustomerId,
+                    CustomerFullName = customer.CustomerFullName,
+                    Telephone = customer.Telephone,
+                    EmailAddress = customer.EmailAddress,
+                    CustomerBirthday = customer.CustomerBirthday,
+                    CustomerStatus = customer.CustomerStatus,
+                    CustomerStatusName = "",
+                    Password = customer.Password,
+                    BookingReservations = customer.BookingReservations,
+                });
+            }
+
+            ServiceCommon.SetCustomerStatusName(customerDtos);
+
+            return customerDtos;
         }
 
         public bool Update(CustomerDto data)
@@ -134,6 +155,11 @@ namespace BusinessLogicLayer.Services
         public int GetNewId()
         {
             return _CustomerRepository.GetNewId();
+        }
+
+        public List<CustomerDto> GetList(int id)
+        {
+            return [];
         }
     }
 }

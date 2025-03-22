@@ -4,7 +4,7 @@ using DataAccessLayer.Repositories;
 
 namespace BusinessLogicLayer.Services
 {
-    public class BookingDetailService : IRepository<BookingDetail>
+    public class BookingDetailService : IService<BookingDetail>
     {
         private static BookingDetailService _Instance = null!;
         private readonly BookingDetailRepository _BookingDetailRepository;
@@ -39,6 +39,11 @@ namespace BusinessLogicLayer.Services
         public List<BookingDetail> GetAll()
         {
             return _BookingDetailRepository.GetAll();
+        }
+
+        public List<BookingDetail> GetList(int id)
+        {
+            return [];
         }
 
         public int GetNewId()

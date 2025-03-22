@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
-    public class CustomerRepository : IRepository<Customer>
+    public class CustomerRepository : IService<Customer>
     {
         private static CustomerRepository _Instance = null!;
         private readonly FuminiHotelManagementContext _Context;
@@ -62,7 +62,22 @@ namespace DataAccessLayer.Repositories
 
         public List<Customer> Search(string? fullName, string? telephone, string? emailAddress)
         {
-            return [];
+            List<Customer> result = GetAll().ToList();
+
+            if (!string.IsNullOrEmpty(fullName))
+            {
+                result.RemoveAll(x => !x.CustomerFullName!.ToLower().Contains(fullName.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(telephone))
+            {
+                result.RemoveAll(x => !x.Telephone!.ToLower().Contains(telephone.ToLower()));
+            }
+            if (!string.IsNullOrEmpty(emailAddress))
+            {
+                result.RemoveAll(x => !x.EmailAddress!.ToLower().Contains(emailAddress.ToLower()));
+            }
+
+            return result;
         }
 
         public bool Update(Customer data)
@@ -75,6 +90,11 @@ namespace DataAccessLayer.Repositories
         public int GetNewId()
         {
             return _Context.Customers.OrderByDescending(x => x.CustomerId).FirstOrDefault()?.CustomerId + 1 ?? 1;
+        }
+
+        public List<Customer> GetList(int id)
+        {
+            return [];
         }
     }
 }
