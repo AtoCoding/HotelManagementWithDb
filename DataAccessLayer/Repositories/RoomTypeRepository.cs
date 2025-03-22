@@ -66,6 +66,11 @@ namespace DataAccessLayer.Repositories
             return [];
         }
 
+        public List<RoomType> Search(int customerId)
+        {
+            return [];
+        }
+
         public bool Update(RoomType data)
         {
             _Context.RoomTypes.Update(data);

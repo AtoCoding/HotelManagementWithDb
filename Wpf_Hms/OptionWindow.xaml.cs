@@ -46,6 +46,13 @@ namespace Wpf_Hms
             this.Close();
         }
 
+        private void BtnBooking_Click(object sender, RoutedEventArgs e)
+        {
+            BookingReservationWindow bookingReservationWindow = new BookingReservationWindow(email);
+            bookingReservationWindow.Show();
+            this.Close();
+        }
+
         private void BtnRoomManagement_Click(object sender, RoutedEventArgs e)
         {
             RoomInformationWindow roomInformationWindow = new RoomInformationWindow(email);

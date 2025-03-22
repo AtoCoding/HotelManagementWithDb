@@ -10,6 +10,7 @@
         List<T> GetAll();
         int Count();
         List<T> Search(string? description, string? typeName, int capacity);
+        List<T> Search(int customerId);
         List<T> Search(string? fullName, string? telephone, string? emailAddress);
         int GetNewId();
     }

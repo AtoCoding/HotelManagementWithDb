@@ -11,6 +11,7 @@ namespace BusinessLogicLayer
         private static IService<Customer> _CustomerService = null!;
         public record CustomerStatus(byte CustomerStatusId, string CustomerStatusName);
         public record RoomStatus(byte RoomStatusId, string RoomStatusName);
+        public record BookingStatus(byte BookingStatusId, string BookingStatusName);
         private ServiceCommon()
         {
             _CustomerService = CustomerService.GetInstance();
@@ -49,6 +50,15 @@ namespace BusinessLogicLayer
             {
                 new RoomStatus(1, HMSDisplayConst.ROOM_INFORMATION_ACTIVE),
                 new RoomStatus(2, HMSDisplayConst.ROOM_INFORMATION_DELETED)
+            };
+        }
+
+        public static List<BookingStatus> GetBookingStatusName()
+        {
+            return new()
+            {
+                new BookingStatus(1, HMSDisplayConst.BOOKING_RESERVATION_ACTIVE),
+                new BookingStatus(2, HMSDisplayConst.BOOKING_RESERVATION_PENDING)
             };
         }
     }

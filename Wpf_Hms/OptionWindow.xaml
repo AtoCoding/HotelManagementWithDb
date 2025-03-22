@@ -13,10 +13,11 @@
     <Canvas>
         <Rectangle Canvas.Left="138" Canvas.Top="87" Height="350" Width="580" Fill="AntiqueWhite" Stroke="Black" RadiusX="20" RadiusY="20" />
 
-        <Canvas x:Name="AdminSession" Visibility="Hidden">
-            <Button x:Name="btnCustomerManagement" Click="BtnCustomerManagement_Click" Content="Customer management" Height="55" Width="230" Canvas.Left="313" Canvas.Top="135" />
-            <Button x:Name="btnRoomManagement" Click="BtnRoomManagement_Click" Content="Room information management" Height="55" Width="230" Canvas.Left="313" Canvas.Top="231" />
-            <Button x:Name="btnReport" Click="BtnReportManagement_Click" Content="Report statistic creation" Height="55" Width="230" Canvas.Left="313" Canvas.Top="329" />
+        <Canvas x:Name="AdminSession" Visibility="Visible">
+            <Button x:Name="btnCustomerManagement" Click="BtnCustomerManagement_Click" Content="Customer management" Height="55" Width="230" Canvas.Left="316" Canvas.Top="113" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <Button x:Name="btnRoomManagement" Click="BtnRoomManagement_Click" Content="Room information management" Height="55" Width="230" Canvas.Left="316" Canvas.Top="277" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <Button x:Name="btnBooking" Click="BtnBooking_Click" Content="Booking reservation management" Height="55" Width="230" Canvas.Left="316" Canvas.Top="197" HorizontalAlignment="Left" VerticalAlignment="Top" />
+            <Button x:Name="btnReport" Click="BtnReportManagement_Click" Content="Report statistic creation" Height="55" Width="230" Canvas.Left="316" Canvas.Top="357" HorizontalAlignment="Left" VerticalAlignment="Top" />
         </Canvas>
 
         <Canvas x:Name="CustomerSession" Visibility="Hidden">

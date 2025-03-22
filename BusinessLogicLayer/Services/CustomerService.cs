@@ -107,5 +107,10 @@ namespace BusinessLogicLayer.Services
         {
             return [];
         }
+
+        public List<Customer> Search(int customerId)
+        {
+            return [];
+        }
     }
 }

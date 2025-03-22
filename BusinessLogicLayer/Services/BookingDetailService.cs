@@ -61,6 +61,11 @@ namespace BusinessLogicLayer.Services
             return _BookingDetailRepository.Search(fullName, telephone, emailAddress);
         }
 
+        public List<BookingDetail> Search(int customerId)
+        {
+            return [];
+        }
+
         public bool Update(BookingDetail data)
         {
             return _BookingDetailRepository.Update(data);

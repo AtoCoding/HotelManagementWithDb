@@ -1,11 +1,11 @@
 ﻿using BusinessLogicLayer.Bases;
-using DataAccessLayer.Bases;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Repositories;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BusinessLogicLayer.Services
 {
-    public class BookingReservationService : Bases.IService<BookingReservation>
+    public class BookingReservationService : IService<BookingReservation>
     {
         private static BookingReservationService _Instance = null!;
         private readonly BookingReservationRepository _BookingReservationRepository;
@@ -44,7 +44,7 @@ namespace BusinessLogicLayer.Services
 
         public int GetNewId()
         {
-            return -1;
+            return _BookingReservationRepository.GetNewId();
         }
 
         public List<BookingReservation> Search(string? description, string? typeName, int capacity)
@@ -65,6 +65,11 @@ namespace BusinessLogicLayer.Services
         public List<BookingReservation> GetList(int id)
         {
             return _BookingReservationRepository.GetList(id);
+        }
+
+        public List<BookingReservation> Search(int customerId)
+        {
+            return _BookingReservationRepository.Search(customerId);
         }
     }
 }

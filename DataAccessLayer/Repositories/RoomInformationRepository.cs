@@ -98,5 +98,10 @@ namespace DataAccessLayer.Repositories
         {
             return [];
         }
+
+        public List<RoomInformation> Search(int customerId)
+        {
+            return [];
+        }
     }
 }

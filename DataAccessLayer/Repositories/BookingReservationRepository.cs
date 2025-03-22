@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Bases;
+﻿using System.Net.Mail;
+using DataAccessLayer.Bases;
 using DataAccessLayer.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,7 +40,7 @@ namespace DataAccessLayer.Repositories
 
         public int GetNewId()
         {
-            return -1;
+            return _Context.BookingReservations.OrderByDescending(x => x.BookingReservationId).FirstOrDefault()?.BookingReservationId + 1 ?? 1;
         }
 
         public BookingReservation? Get(int id)
@@ -49,7 +50,11 @@ namespace DataAccessLayer.Repositories
 
         public List<BookingReservation> GetAll()
         {
-            return _Context.BookingReservations.ToList();
+            return _Context.BookingReservations.Include(x => x.Customer)
+                                               .Include(x => x.BookingDetails)
+                                                    .ThenInclude(x => x.Room)
+                                                        .ThenInclude(x => x.RoomType)
+                                               .ToList();
         }
 
         public List<BookingReservation> Search(string? description, string? typeName, int capacity)
@@ -76,6 +81,22 @@ namespace DataAccessLayer.Repositories
                                                     .ThenInclude(x => x.Room)
                                                         .ThenInclude(x => x.RoomType)
                                                .ToList();
+        }
+
+        public List<BookingReservation> Search(int customerId)
+        {
+            List<BookingReservation> result = GetAll().ToList();
+
+            if (customerId != 0)
+            {
+                result.RemoveAll(x => x.CustomerId != customerId);
+            } 
+            else
+            {
+                return GetAll().ToList();
+            }
+
+            return result;
         }
     }
 }

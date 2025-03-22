@@ -61,6 +61,11 @@ namespace BusinessLogicLayer.Services
             return _RoomTypeRepository.Search(fullName, telephone, emailAddress);
         }
 
+        public List<RoomType> Search(int customerId)
+        {
+            return [];
+        }
+
         public bool Update(RoomType data)
         {
             return _RoomTypeRepository.Update(data);

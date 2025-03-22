@@ -66,6 +66,11 @@ namespace DataAccessLayer.Repositories
             return [];
         }
 
+        public List<BookingDetail> Search(int customerId)
+        {
+            return [];
+        }
+
         public bool Update(BookingDetail data)
         {
             _Context.BookingDetails.Update(data);

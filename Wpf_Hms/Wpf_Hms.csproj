@@ -13,6 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="AdminWindow\BookingDetailsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="AdminWindow\RoomDetailsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

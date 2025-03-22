@@ -66,6 +66,11 @@ namespace BusinessLogicLayer.Services
             return [];
         }
 
+        public List<RoomInformation> Search(int customerId)
+        {
+            return [];
+        }
+
         public bool Update(RoomInformation data)
         {
             RoomInformation? roomInformation = _RoomInformationRepository.Get(data.RoomId);
