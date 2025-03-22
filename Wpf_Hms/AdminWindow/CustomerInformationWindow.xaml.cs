@@ -2,9 +2,6 @@
 using BusinessLogicLayer.Services;
 using BusinessLogicLayer.Bases;
 using DataAccessLayer.Entities;
-using BusinessLogicLayer.Dtos;
-using Wpf_Hms.Admin;
-
 namespace Wpf_Hms.AdminWindow
 {
     /// <summary>
@@ -12,7 +9,7 @@ namespace Wpf_Hms.AdminWindow
     /// </summary>
     public partial class CustomerInformationWindow : Window
     {
-        private readonly IService<CustomerDto> _CustomerService;
+        private readonly IService<Customer> _CustomerService;
 
         private readonly string email = string.Empty;
 
@@ -32,7 +29,7 @@ namespace Wpf_Hms.AdminWindow
             LoadDataWindow(customers);
         }
 
-        private void LoadDataWindow(List<CustomerDto> customers)
+        private void LoadDataWindow(List<Customer> customers)
         {
             dgCustomer.ItemsSource = customers;
             dgCustomer.Items.Refresh();
@@ -46,7 +43,7 @@ namespace Wpf_Hms.AdminWindow
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            CustomerDto customer = (CustomerDto)dgCustomer.SelectedItem;
+            Customer customer = (Customer)dgCustomer.SelectedItem;
             if (customer == null)
             {
                 MessageBox.Show("Please select a room to update");
@@ -66,15 +63,15 @@ namespace Wpf_Hms.AdminWindow
 
             if (result == MessageBoxResult.Yes)
             {
-                CustomerDto customerDto = (CustomerDto)dgCustomer.SelectedItem;
+                Customer Customer = (Customer)dgCustomer.SelectedItem;
 
-                if (customerDto == null)
+                if (Customer == null)
                 {
                     MessageBox.Show("Please select a room to delete");
                     return;
                 }
 
-                if (_CustomerService.Delete(customerDto.CustomerId))
+                if (_CustomerService.Delete(Customer.CustomerId))
                 {
                     MessageBox.Show("Delete successfully");
                 }
@@ -112,10 +109,10 @@ namespace Wpf_Hms.AdminWindow
 
         private void btnViewDetails_Click(object sender, RoutedEventArgs e)
         {
-            CustomerDto customer = (CustomerDto)dgCustomer.SelectedItem;
+            Customer customer = (Customer)dgCustomer.SelectedItem;
             if (customer == null)
             {
-                MessageBox.Show("Please select a room to view");
+                MessageBox.Show("Please select a customer to view");
                 return;
             }
             CustomerDetailsWindow customerDetailsWindow = new(customer);

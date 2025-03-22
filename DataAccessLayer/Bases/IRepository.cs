@@ -1,6 +1,6 @@
 ﻿namespace DataAccessLayer.Bases
 {
-    public interface IService<T>
+    public interface IRepository<T>
     {
         bool Add(T data);
         bool Update(T data);

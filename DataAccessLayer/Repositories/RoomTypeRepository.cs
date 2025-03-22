@@ -3,7 +3,7 @@ using DataAccessLayer.Entities;
 
 namespace DataAccessLayer.Repositories
 {
-    public class RoomTypeRepository : IService<RoomType>
+    public class RoomTypeRepository : IRepository<RoomType>
     {
         private static RoomTypeRepository _Instance = null!;
         private readonly FuminiHotelManagementContext _Context;

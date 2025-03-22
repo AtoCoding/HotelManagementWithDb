@@ -5,6 +5,7 @@ using BusinessLogicLayer.Services;
 using BusinessLogicLayer.Bases;
 using DataAccessLayer.Entities;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
+using BusinessLogicLayer;
 
 namespace Wpf_Hms.Admin
 {
@@ -38,22 +39,12 @@ namespace Wpf_Hms.Admin
             LoadRoomStatus();
             LoadRoomType();
 
+            newRoomId = _RoomInformationService.GetNewId();
+
             if (isCreateAction)
             {
-                List<RoomInformation> roomInformations = _RoomInformationService.GetAll();
-                newRoomId = roomInformations.Count + 1;
-
-                bool isNotExisted = roomInformations.FirstOrDefault(x => x.RoomId == newRoomId) == null;
-
-                if (isNotExisted)
-                {
-                    lbTitle.Content = "Create Hotel Room";
-                    txtRoomId.Text = newRoomId.ToString();
-                } 
-                else
-                {
-                    MessageBox.Show("There is an error!");
-                }
+                lbTitle.Content = "Create Hotel Room";
+                txtRoomId.Text = newRoomId.ToString();
             }
             else
             {
@@ -63,18 +54,19 @@ namespace Wpf_Hms.Admin
                 txtCapacity.Text = roomInformation.RoomMaxCapacity.ToString();
                 txtRoomDescription.Text = roomInformation.RoomDetailDescription?.ToString();
                 txtPrice.Text = roomInformation.RoomPricePerDay.ToString();
-                cbxStatus.SelectedValue = (int)roomInformation.RoomStatus;
+                cbxStatus.SelectedValue = (int)roomInformation.RoomStatus!;
                 cbxRoomType.SelectedValue = roomInformation.RoomType?.RoomTypeId;
+
+                if (roomInformation.RoomStatus == 2) cbxStatus.IsEnabled = true;
+                else cbxStatus.IsEnabled = false;
             }
         }
 
         private void LoadRoomStatus()
         {
-            //var roomStatus = Enum.GetValues(typeof(RoomStatus))
-            //                .Cast<RoomStatus>()
-            //                .Select(x => new {RoomStatusId = (int)x, RoomStatusName = x.ToString()});
+            var roomStatus = ServiceCommon.GetRoomStatusName();
 
-            //cbxStatus.ItemsSource = roomStatus;
+            cbxStatus.ItemsSource = roomStatus;
             cbxStatus.SelectedValuePath = "RoomStatusId";
             cbxStatus.DisplayMemberPath = "RoomStatusName";
         }
@@ -83,7 +75,7 @@ namespace Wpf_Hms.Admin
         {
             List<RoomType> roomTypes = _RoomTypeService.GetAll();
             cbxRoomType.ItemsSource = roomTypes;
-            cbxRoomType.SelectedValuePath = "RoomTypeID";
+            cbxRoomType.SelectedValuePath = "RoomTypeId";
             cbxRoomType.DisplayMemberPath = "RoomTypeName";
         }
 
@@ -93,13 +85,13 @@ namespace Wpf_Hms.Admin
             decimal pricePerDate = 0;
             RoomInformation roomInformation = new()
             {
-                //RoomID = int.Parse(txtRoomId.Text),
-                //RoomNumber = txtRoomNumber.Text ?? string.Empty,
-                //RoomDescription = txtRoomDescription.Text ?? string.Empty,
-                //RoomMaxCapacity = int.TryParse(txtCapacity.Text, out maxCapacity) ? maxCapacity : null,
-                //RoomStatus = cbxStatus.SelectedValue != null ? (RoomStatus)cbxStatus.SelectedValue : null,
-                //RoomPricePerDate = decimal.TryParse(txtPrice.Text, out pricePerDate) ? pricePerDate : null,
-                //RoomTypeID = cbxRoomType.SelectedValue != null ? (int)cbxRoomType.SelectedValue : null
+                RoomId = int.Parse(txtRoomId.Text),
+                RoomNumber = txtRoomNumber.Text ?? string.Empty,
+                RoomDetailDescription = txtRoomDescription.Text ?? string.Empty,
+                RoomMaxCapacity = int.TryParse(txtCapacity.Text, out maxCapacity) ? maxCapacity : null,
+                RoomStatus = cbxStatus.SelectedValue != null ? byte.Parse(cbxStatus.SelectedValue.ToString()!) : null,
+                RoomPricePerDay = decimal.TryParse(txtPrice.Text, out pricePerDate) ? pricePerDate : null,
+                RoomTypeId = cbxRoomType.SelectedValue != null ? int.Parse(cbxRoomType.SelectedValue.ToString()!) : 0
             };
 
             var validationResults = new List<ValidationResult>();
@@ -118,7 +110,7 @@ namespace Wpf_Hms.Admin
                 {
                     var dataAdd = _RoomInformationService.Add(roomInformation);
 
-                    if (dataAdd != null)
+                    if (dataAdd)
                     {
                         MessageBox.Show("Create successfully!");
                         this.Close();
@@ -132,7 +124,7 @@ namespace Wpf_Hms.Admin
                 {
                     var dataUpdate = _RoomInformationService.Update(roomInformation);
 
-                    if (dataUpdate != null)
+                    if (dataUpdate)
                     {
                         MessageBox.Show("Update successfully!");
                         this.Close();

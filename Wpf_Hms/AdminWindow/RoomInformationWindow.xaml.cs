@@ -26,6 +26,7 @@ namespace Wpf_Hms.AdminWindow
         private void LoadRoomInformation()
         {
             var roomsInfor = _RoomInformationService.GetAll();
+            txtWelcomeMessage.Content = $"Welcome, {email}";
 
             LoadDataWindow(roomsInfor);
         }
@@ -106,6 +107,18 @@ namespace Wpf_Hms.AdminWindow
             var roomsInformation = _RoomInformationService.Search(descSearch, typeNameSearch, capacitySearch);
 
             LoadDataWindow(roomsInformation);
+        }
+
+        private void btnViewDetails_Click(object sender, RoutedEventArgs e)
+        {
+            RoomInformation roomInformation = (RoomInformation)dgHotel.SelectedItem;
+            if (roomInformation == null)
+            {
+                MessageBox.Show("Please select a room to view");
+                return;
+            }
+            RoomDetailsWindow roomDetailsWindow = new(roomInformation);
+            roomDetailsWindow.ShowDialog();
         }
     }
 }

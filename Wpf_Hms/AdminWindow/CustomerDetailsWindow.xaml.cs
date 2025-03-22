@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using BusinessLogicLayer;
 using BusinessLogicLayer.Bases;
-using BusinessLogicLayer.Dtos;
 using BusinessLogicLayer.Services;
 using DataAccessLayer.Entities;
 using static BusinessLogicLayer.ServiceCommon;
@@ -15,13 +14,13 @@ namespace Wpf_Hms.AdminWindow
     {
         private readonly IService<BookingReservation> _BookingReservationService;
 
-        private CustomerDto customerDto;
+        private Customer Customer;
 
-        public CustomerDetailsWindow(CustomerDto customerDto)
+        public CustomerDetailsWindow(Customer Customer)
         {
             InitializeComponent();
             _BookingReservationService = BookingReservationService.GetInstance();
-            this.customerDto = customerDto;
+            this.Customer = Customer;
             LoadData();
         }
 
@@ -29,7 +28,7 @@ namespace Wpf_Hms.AdminWindow
         {
             LoadCustomerInformation();
 
-            List<BookingReservation> bookingReservation = _BookingReservationService.GetList(customerDto.CustomerId);
+            List<BookingReservation> bookingReservation = _BookingReservationService.GetList(Customer.CustomerId);
 
             if (bookingReservation.Count > 0)
             {
@@ -41,13 +40,13 @@ namespace Wpf_Hms.AdminWindow
         {
             LoadCustomerStatus();
 
-            txtCustomerId.Text = customerDto.CustomerId.ToString();
-            txtCustomerFullName.Text = customerDto.CustomerFullName;
-            txtTelephone.Text = customerDto.Telephone;
-            txtEmailAddress.Text = customerDto.EmailAddress;
-            dpCustomerBirthday.SelectedDate = customerDto.CustomerBirthday!.Value.ToDateTime(new TimeOnly(0, 0));
-            cbxCustomerStatus.SelectedValue = (int)customerDto.CustomerStatus!;
-            txtPassword.Text = customerDto.Password;
+            txtCustomerId.Text = Customer.CustomerId.ToString();
+            txtCustomerFullName.Text = Customer.CustomerFullName;
+            txtTelephone.Text = Customer.Telephone;
+            txtEmailAddress.Text = Customer.EmailAddress;
+            dpCustomerBirthday.SelectedDate = Customer.CustomerBirthday!.Value.ToDateTime(new TimeOnly(0, 0));
+            cbxCustomerStatus.SelectedValue = (int)Customer.CustomerStatus!;
+            txtPassword.Text = Customer.Password;
         }
 
         private void LoadCustomerStatus()

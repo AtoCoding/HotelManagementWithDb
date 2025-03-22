@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
-    public class CustomerRepository : IService<Customer>
+    public class CustomerRepository : IRepository<Customer>
     {
         private static CustomerRepository _Instance = null!;
         private readonly FuminiHotelManagementContext _Context;
@@ -82,8 +82,6 @@ namespace DataAccessLayer.Repositories
 
         public bool Update(Customer data)
         {
-            _Context.Customers.Update(data);
-
             return _Context.SaveChanges() > 0;
         }
 

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories
 {
-    public class BookingReservationRepository : IService<BookingReservation>
+    public class BookingReservationRepository : IRepository<BookingReservation>
     {
         private static BookingReservationRepository _Instance = null!;
         private readonly FuminiHotelManagementContext _Context;

@@ -1,5 +1,4 @@
 ﻿using BusinessLogicLayer.Bases;
-using BusinessLogicLayer.Dtos;
 using DataAccessLayer;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Repositories;
@@ -7,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace BusinessLogicLayer.Services
 {
-    public class CustomerService : IService<CustomerDto>, IAccount<CustomerDto>
+    public class CustomerService : IService<Customer>, IAccount<Customer>
     {
         private static CustomerService _Instance = null!;
         private readonly CustomerRepository _CustomerRepository;
@@ -19,22 +18,11 @@ namespace BusinessLogicLayer.Services
 
         public static CustomerService GetInstance() => _Instance ??= new CustomerService();
 
-        public bool Add(CustomerDto data)
+        public bool Add(Customer data)
         {
             if (data != null)
             {
-                Customer customer = new()
-                {
-                    CustomerFullName = data.CustomerFullName,
-                    Telephone = data.Telephone,
-                    EmailAddress = data.EmailAddress,
-                    CustomerBirthday = data.CustomerBirthday,
-                    CustomerStatus = data.CustomerStatus,
-                    Password = data.Password,
-                    BookingReservations = []
-                };
-
-                return _CustomerRepository.Add(customer);
+                return _CustomerRepository.Add(data);
             }
 
             return false;
@@ -71,69 +59,27 @@ namespace BusinessLogicLayer.Services
             return _CustomerRepository.Delete(id);
         }
 
-        public CustomerDto? Get(int id)
+        public Customer? Get(int id)
         {
             return null!;
         }
 
-        public List<CustomerDto> GetAll()
+        public List<Customer> GetAll()
         {
-            List<Customer> customers = _CustomerRepository.GetAll();
-            List<CustomerDto> customerDtos = new List<CustomerDto>();
-
-            foreach (var customer in customers)
-            {
-                customerDtos.Add(new CustomerDto()
-                {
-                    CustomerId = customer.CustomerId,
-                    CustomerFullName = customer.CustomerFullName,
-                    Telephone = customer.Telephone,
-                    EmailAddress = customer.EmailAddress,
-                    CustomerBirthday = customer.CustomerBirthday,
-                    CustomerStatus = customer.CustomerStatus,
-                    CustomerStatusName = "",
-                    Password = customer.Password,
-                    BookingReservations = customer.BookingReservations,
-                });
-            }
-
-            ServiceCommon.SetCustomerStatusName(customerDtos);
-
-            return customerDtos;
+            return _CustomerRepository.GetAll();
         }
 
-        public List<CustomerDto> Search(string? description, string? typeName, int capacity)
+        public List<Customer> Search(string? description, string? typeName, int capacity)
         {
             return [];
         }
 
-        public List<CustomerDto> Search(string? fullName, string? telephone, string? emailAddress)
+        public List<Customer> Search(string? fullName, string? telephone, string? emailAddress)
         {
-            List<Customer> customers = _CustomerRepository.Search(fullName, telephone, emailAddress);
-            List<CustomerDto> customerDtos = new List<CustomerDto>();
-
-            foreach (var customer in customers)
-            {
-                customerDtos.Add(new CustomerDto()
-                {
-                    CustomerId = customer.CustomerId,
-                    CustomerFullName = customer.CustomerFullName,
-                    Telephone = customer.Telephone,
-                    EmailAddress = customer.EmailAddress,
-                    CustomerBirthday = customer.CustomerBirthday,
-                    CustomerStatus = customer.CustomerStatus,
-                    CustomerStatusName = "",
-                    Password = customer.Password,
-                    BookingReservations = customer.BookingReservations,
-                });
-            }
-
-            ServiceCommon.SetCustomerStatusName(customerDtos);
-
-            return customerDtos;
+            return _CustomerRepository.Search(fullName, telephone, emailAddress);
         }
 
-        public bool Update(CustomerDto data)
+        public bool Update(Customer data)
         {
             Customer? customer = _CustomerRepository.Get(data.CustomerId);
 
@@ -157,7 +103,7 @@ namespace BusinessLogicLayer.Services
             return _CustomerRepository.GetNewId();
         }
 
-        public List<CustomerDto> GetList(int id)
+        public List<Customer> GetList(int id)
         {
             return [];
         }

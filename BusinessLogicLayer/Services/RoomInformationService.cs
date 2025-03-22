@@ -18,7 +18,12 @@ namespace BusinessLogicLayer.Services
 
         public bool Add(RoomInformation data)
         {
-            return _RoomInformationRepository.Add(data);
+            if (data != null)
+            {
+                return _RoomInformationRepository.Add(data);
+            }
+
+            return false;
         }
 
         public int Count()
@@ -48,7 +53,7 @@ namespace BusinessLogicLayer.Services
 
         public int GetNewId()
         {
-            return -1;
+            return _RoomInformationRepository.GetNewId();
         }
 
         public List<RoomInformation> Search(string? description, string? typeName, int capacity)
@@ -58,12 +63,26 @@ namespace BusinessLogicLayer.Services
 
         public List<RoomInformation> Search(string? fullName, string? telephone, string? emailAddress)
         {
-            return _RoomInformationRepository.Search(fullName, telephone, emailAddress);
+            return [];
         }
 
         public bool Update(RoomInformation data)
         {
-            return _RoomInformationRepository.Update(data); 
+            RoomInformation? roomInformation = _RoomInformationRepository.Get(data.RoomId);
+
+            if (roomInformation != null)
+            {
+                roomInformation.RoomNumber = data.RoomNumber;
+                roomInformation.RoomDetailDescription = data.RoomDetailDescription;
+                roomInformation.RoomMaxCapacity = data.RoomMaxCapacity;
+                roomInformation.RoomTypeId = data.RoomTypeId;
+                roomInformation.RoomStatus = data.RoomStatus;
+                roomInformation.RoomPricePerDay = data.RoomPricePerDay;
+
+                return _RoomInformationRepository.Update(roomInformation);
+            }
+
+            return false;
         }
     }
 }

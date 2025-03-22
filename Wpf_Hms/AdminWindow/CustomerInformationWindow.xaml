@@ -31,7 +31,7 @@
                     <DataGridTextColumn Header="Telephone" Width="70" Binding="{Binding Telephone}" />
                     <DataGridTextColumn Header="Email" Width="100" Binding="{Binding EmailAddress}" />
                     <DataGridTextColumn Header="Birthday" Width="70" Binding="{Binding CustomerBirthday, StringFormat={}{0:dd/MM/yyyy}}" />
-                    <DataGridTextColumn Header="Status" Width="100" Binding="{Binding CustomerStatusName}" />
+                    <DataGridTextColumn Header="Status" Width="100" Binding="{Binding CustomerStatus}" />
                     <DataGridTextColumn Header="Password" Width="100" Visibility="Hidden" Binding="{Binding Password}" />
                 </DataGrid.Columns>
             </DataGrid>

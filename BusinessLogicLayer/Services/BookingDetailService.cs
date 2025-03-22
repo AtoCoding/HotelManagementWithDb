@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.Bases;
+﻿using BusinessLogicLayer.Bases;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Repositories;
 

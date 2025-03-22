@@ -5,7 +5,6 @@ using BusinessLogicLayer.Bases;
 using DataAccessLayer.Entities;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 using BusinessLogicLayer.Constant;
-using BusinessLogicLayer.Dtos;
 
 namespace Wpf_Hms.CustomerProfile
 {
@@ -14,7 +13,7 @@ namespace Wpf_Hms.CustomerProfile
     /// </summary>
     public partial class CustomerProfileWindow : Window
     {
-        private readonly IService<CustomerDto> _CustomerService;
+        private readonly IService<Customer> _CustomerService;
 
         private readonly string email = string.Empty;
 
@@ -30,7 +29,7 @@ namespace Wpf_Hms.CustomerProfile
         {
             LoadCustomerStatus();
 
-            CustomerDto customer = _CustomerService.GetAll().Find(x => x.EmailAddress == email)!;
+            Customer customer = _CustomerService.GetAll().Find(x => x.EmailAddress == email)!;
 
             txtCustomerId.Text = customer.CustomerId.ToString();
             txtCustomerFullName.Text = customer.CustomerFullName;
@@ -73,7 +72,7 @@ namespace Wpf_Hms.CustomerProfile
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            CustomerDto customer = new()
+            Customer customer = new()
             {
                 CustomerId = int.Parse(txtCustomerId.Text),
                 CustomerFullName = txtCustomerFullName.Text ?? string.Empty,
@@ -95,9 +94,9 @@ namespace Wpf_Hms.CustomerProfile
             }
             else
             {
-                var dataUpdate = _CustomerService.Update(customer);
+                bool dataUpdate = _CustomerService.Update(customer);
 
-                if (dataUpdate != null)
+                if (dataUpdate)
                 {
                     MessageBox.Show("Update successfully!");
                 }

@@ -1,14 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Controls;
-using BusinessLogicLayer.Dtos;
 using BusinessLogicLayer.Services;
 using BusinessLogicLayer.Bases;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
-using BusinessLogicLayer.Constant;
 using BusinessLogicLayer;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.EntityFrameworkCore.Storage.Json;
+using DataAccessLayer.Entities;
 
 namespace Wpf_Hms.AdminWindow
 {
@@ -17,7 +14,7 @@ namespace Wpf_Hms.AdminWindow
     /// </summary>
     public partial class CustomerProcessingWindow : Window
     {
-        private readonly IService<CustomerDto> _CustomerService;
+        private readonly IService<Customer> _CustomerService;
 
         private int newCustomerId;
 
@@ -25,7 +22,7 @@ namespace Wpf_Hms.AdminWindow
 
         private DataGrid dgCustomer;
 
-        public CustomerProcessingWindow(bool isCreateAction, CustomerDto customer, DataGrid dgCustomer)
+        public CustomerProcessingWindow(bool isCreateAction, Customer customer, DataGrid dgCustomer)
         {
             InitializeComponent();
             _CustomerService = CustomerService.GetInstance();
@@ -34,7 +31,7 @@ namespace Wpf_Hms.AdminWindow
             SetDefaultData(customer);
         }
 
-        private void SetDefaultData(CustomerDto customer)
+        private void SetDefaultData(Customer customer)
         {
             LoadCustomerStatus();
 
@@ -72,9 +69,8 @@ namespace Wpf_Hms.AdminWindow
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            CustomerDto customerDto = new()
+            Customer customer = new()
             {
-                CustomerId = int.Parse(txtCustomerId.Text),
                 CustomerFullName = txtCustomerFullName.Text ?? string.Empty,
                 Telephone = txtTelephone.Text ?? string.Empty,
                 EmailAddress = txtEmailAddress.Text ?? string.Empty,
@@ -84,9 +80,9 @@ namespace Wpf_Hms.AdminWindow
             };
 
             var validationResults = new List<ValidationResult>();
-            var context = new ValidationContext(customerDto);
+            var context = new ValidationContext(customer);
 
-            bool isValid = Validator.TryValidateObject(customerDto, context, validationResults, true);
+            bool isValid = Validator.TryValidateObject(customer, context, validationResults, true);
 
             if (!isValid)
             {
@@ -97,7 +93,7 @@ namespace Wpf_Hms.AdminWindow
             {
                 if (isCreateAction)
                 {
-                    bool addResult = _CustomerService.Add(customerDto);
+                    bool addResult = _CustomerService.Add(customer);
 
                     if (addResult)
                     {
@@ -111,7 +107,7 @@ namespace Wpf_Hms.AdminWindow
                 }
                 else
                 {
-                    bool updateResult = _CustomerService.Update(customerDto);
+                    bool updateResult = _CustomerService.Update(customer);
 
                     if (updateResult)
                     {

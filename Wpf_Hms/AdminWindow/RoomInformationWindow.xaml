@@ -26,22 +26,23 @@
         <StackPanel Orientation="Horizontal">
             <DataGrid x:Name="dgHotel" Height="310" Width="930" Margin="40,289,0,0" AutoGenerateColumns="False" TabIndex="8" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Width="40" Binding="{Binding RoomID}" />
+                    <DataGridTextColumn Header="ID" Width="40" Binding="{Binding RoomId}" />
                     <DataGridTextColumn Header="Room's number" Width="200" Binding="{Binding RoomNumber}" />
-                    <DataGridTextColumn Header="Description" Width="70" Binding="{Binding RoomDescription}" />
+                    <DataGridTextColumn Header="Description" Width="70" Binding="{Binding RoomDetailDescription}" />
                     <DataGridTextColumn Header="Capacity" Width="100" Binding="{Binding RoomMaxCapacity}" />
                     <DataGridTextColumn Header="Status" Width="200" Binding="{Binding RoomStatus}" />
-                    <DataGridTextColumn Header="Price / day" Width="70" Binding="{Binding RoomPricePerDate}" />
+                    <DataGridTextColumn Header="Price / day" Width="70" Binding="{Binding RoomPricePerDay}" />
                     <DataGridTextColumn Header="Room's type" Width="100" Binding="{Binding RoomType.RoomTypeName}" />
                 </DataGrid.Columns>
             </DataGrid>
 
             <StackPanel Margin="10,289,0,0" VerticalAlignment="Top">
-                <Button x:Name="btnCreate" Content="Create Hotel" Height="50" Width="185" TabIndex="4" Click="btnCreate_Click"/>
-                <Button x:Name="btnUpdate" Content="Update Hotel" Height="50" Width="185" TabIndex="5" Click="btnUpdate_Click" />
-                <Button x:Name="btnDelete" Content="Delete Hotel" Height="50" Width="185" TabIndex="6" Click="btnDelete_Click" />
-                <Button x:Name="btnBack" Content="Back to main menu" Height="50" Width="185" TabIndex="7" Click="btnBack_Click" />
-                <Button x:Name="btnQuit" Content="Quit" Height="50" Width="185" TabIndex="8" Click="btnQuit_Click" />
+                <Button x:Name="btnViewDetails" Content="View Details" Height="50" Width="185" TabIndex="5" Click="btnViewDetails_Click"/>
+                <Button x:Name="btnCreate" Content="Create Hotel" Height="50" Width="185" TabIndex="6" Click="btnCreate_Click"/>
+                <Button x:Name="btnUpdate" Content="Update Hotel" Height="50" Width="185" TabIndex="7" Click="btnUpdate_Click" />
+                <Button x:Name="btnDelete" Content="Delete Hotel" Height="50" Width="185" TabIndex="8" Click="btnDelete_Click" />
+                <Button x:Name="btnBack" Content="Back to main menu" Height="50" Width="185" TabIndex="9" Click="btnBack_Click" />
+                <Button x:Name="btnQuit" Content="Quit" Height="50" Width="185" TabIndex="10" Click="btnQuit_Click" />
             </StackPanel>
         </StackPanel>
     </Canvas>
